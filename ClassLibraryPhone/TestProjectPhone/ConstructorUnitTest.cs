@@ -1,5 +1,9 @@
 using ClassLibrary;
-using System.Security.Cryptography.X509Certificates;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace TestProjectPhone
 {
@@ -37,6 +41,17 @@ namespace TestProjectPhone
             // Assert
             // Obecne rozwi¹zanie
             //Assert.ThrowsException<ArgumentException>(() => new Phone(wlasiciel, numer));
+        }
+
+        [TestMethod]
+        public void LiteryWNumerze_ArgumentException()
+        {
+            // AAA
+            // Arrange
+            var wlasiciel = "Jakub";
+            var numer = "12345678a";
+            // Act & Assert
+            Assert.ThrowsException<ArgumentException>(() => new Phone(wlasiciel, numer));
         }
 
         [TestMethod]
