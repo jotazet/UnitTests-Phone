@@ -10,20 +10,56 @@ namespace TestProjectPhone
     [TestClass]
     public class ConstructorUnitTest
     {
-        [TestMethod]
-        public void DaneTelefonuPoprawne()
+        [DataTestMethod]
+        [DataRow("Jakub", "123456789")]
+        [DataRow("@", "123456789")]
+        [DataRow("2", "123456789")]
+        public void DaneTelefonuPoprawne(string wlasiciel, string numer)
         {
             // AAA
 
             // Arrange
-            var wlasiciel = "Jakub";
-            var numer = "123456789";
             // Act
             var telefon = new Phone(wlasiciel, numer);
             // Assert
             Assert.AreEqual(wlasiciel, telefon.Owner);
         }
 
+        [DataTestMethod]
+        [DataRow("Jakub", "1234567890")]
+        [DataRow("Jakub", "12345678")]
+        [DataRow("Jakub", "")]
+        [DataRow("Jakub", null)]
+        [DataRow("", "123456789")]
+        [DataRow(null, "123456789")]
+        [DataRow("", "")]
+        [DataRow(null, null)]
+        [DataRow("", "1234567891")]
+        [DataRow("", "12345678")]
+        [DataRow(null, "12345678")]
+        [DataRow(null, "1234567891")]
+        [DataRow("Jakub", "12345678a")]
+        public void DaneTelefonuNiepoprawne_ArgumentException(string wlasiciel, string numer)
+        {
+            // AAA
+            // Arrange
+            // Act
+            // Assert
+            Assert.ThrowsException<ArgumentException>(() => new Phone(wlasiciel, numer));
+        }
+        [TestMethod]
+        public void PobieranieNumeruTelefonu()
+        {
+            // AAA
+            // Arrange
+            var wlasiciel = "Jakub";
+            var numer = "123456789";
+            // Act
+            var telefon = new Phone(wlasiciel, numer);
+            // Assert
+            Assert.AreEqual(numer, telefon.PhoneNumber);
+        }
+        /*
         [TestMethod]
         // Stary sposób
         [ExpectedException(typeof(ArgumentException))]
@@ -42,105 +78,6 @@ namespace TestProjectPhone
             // Obecne rozwi¹zanie
             //Assert.ThrowsException<ArgumentException>(() => new Phone(wlasiciel, numer));
         }
-
-        [TestMethod]
-        public void LiteryWNumerze_ArgumentException()
-        {
-            // AAA
-            // Arrange
-            var wlasiciel = "Jakub";
-            var numer = "12345678a";
-            // Act & Assert
-            Assert.ThrowsException<ArgumentException>(() => new Phone(wlasiciel, numer));
-        }
-
-        [TestMethod]
-        public void ZaDlugiNumerTelefonu_ArgumentException()
-        {
-            // AAA
-            // Arrange
-            var wlasiciel = "Jakub";
-            var numer = "1234567890";
-
-            // Act & Assert
-            Assert.ThrowsException<ArgumentException>(() => new Phone(wlasiciel, numer));
-        }
-
-        [TestMethod]
-        public void BrakWlasciciela_ArgumentException()
-        {
-            // AAA
-            // Arrange
-            var wlasiciel = "";
-            var numer = "123456789";
-            // Act & Assert
-            Assert.ThrowsException<ArgumentException>(() => new Phone(wlasiciel, numer));
-        }
-
-        [TestMethod]
-        public void NullWlasciciel_ArgumentException()
-        {
-            // AAA
-            // Arrange
-            string wlasiciel = null;
-            var numer = "123456789";
-            // Act & Assert
-            Assert.ThrowsException<ArgumentException>(() => new Phone(wlasiciel, numer));
-        }
-
-        [TestMethod]
-        public void BrakWlascicielaINumeru_ArgumentException()
-        {
-            // AAA
-            // Arrange
-            var wlasiciel = "";
-            var numer = "";
-            // Act & Assert
-            Assert.ThrowsException<ArgumentException>(() => new Phone(wlasiciel, numer));
-        }
-
-        [TestMethod]
-        public void NullWlascicielaINumeru_ArgumentException()
-        {
-            // AAA
-            // Arrange
-            string wlasiciel = null;
-            string numer = null;
-            // Act & Assert
-            Assert.ThrowsException<ArgumentException>(() => new Phone(wlasiciel, numer));
-        }
-
-        [TestMethod]
-        public void BrakNumeru_ArgumentException()
-        {
-            // AAA
-            // Arrange
-            var wlasiciel = "Jakub";
-            var numer = "";
-            // Act & Assert
-            Assert.ThrowsException<ArgumentException>(() => new Phone(wlasiciel, numer));
-        }
-
-        [TestMethod]
-        public void NullNumeru_ArgumentException()
-        {
-            // AAA
-            // Arrange
-            var wlasiciel = "Jakub";
-            string numer = null;
-            // Act & Assert
-            Assert.ThrowsException<ArgumentException>(() => new Phone(wlasiciel, numer));
-        }
-
-        [TestMethod]
-        public void BrakWlascicielaINullNumeru_ArgumentException()
-        {
-            // AAA
-            // Arrange
-            var wlasiciel = "";
-            string numer = null;
-            // Act & Assert
-            Assert.ThrowsException<ArgumentException>(() => new Phone(wlasiciel, numer));
-        }
+        */
     }
 }
